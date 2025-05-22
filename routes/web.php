@@ -40,7 +40,12 @@ Route::get('/ipp', function () {
 
 });
 
-Route::get('/categorie',[\App\Http\Controllers\CategorieController::class,'index']);
+Route::get('/categorie',[\App\Http\Controllers\CategorieController::class,'index'])->name('categorie');;
 Route::get('/addCategorie',[\App\Http\Controllers\CategorieController::class,'create'])->name('addCategorie');
 Route::post('/saveCategorie',[\App\Http\Controllers\CategorieController::class,'store'])->name('saveCategorie');
 Route::delete('/deleteCategorie/{id}',[\App\Http\Controllers\CategorieController::class,'destroy'])->name('deleteCategorie');;
+
+Route::get('/produit',[\App\Http\Controllers\ProduitController::class,'index'])->name('produit');;
+Route::get('/addProduit',[\App\Http\Controllers\ProduitController::class,'create'])->name('addProduit');
+Route::post('/saveProduit',[\App\Http\Controllers\ProduitController::class,'store'])->name('saveProduit');
+Route::delete('/deleteProduit/{id}',[\App\Http\Controllers\ProduitController::class,'destroy'])->name('deleteProduit');;

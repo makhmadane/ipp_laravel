@@ -1,15 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<a href="{{route('addCategorie')}}" >Add</a>
-    <table>
+
+@extends('welcome')
+
+@section('content')
+<div class="container">
+    <a href="{{route('addCategorie')}}" class="btn btn-success" >Add</a>
+    <br>
+    <table class="table table-bordered mt-5">
         <tr>
             <td>Id</td>
             <td>Libelle</td>
@@ -23,13 +19,13 @@
                     <form action="{{route('deleteCategorie',$c->id)}}" method="post">
                         @method("delete")
                         @csrf
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>
         @endforeach
     </table>
 
+</div>
+@endsection
 
-</body>
-</html>

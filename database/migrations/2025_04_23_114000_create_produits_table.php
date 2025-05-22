@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer("prix");
             $table->float("qt");
             $table->timestamps();
-      
+
         });
     }
 

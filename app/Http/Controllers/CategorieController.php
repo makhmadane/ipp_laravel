@@ -14,7 +14,7 @@ class CategorieController extends Controller
     public function index()
     {
         $categories = \App\Models\Categorie::all();
-        return  view('categorie',compact('categories'));
+        return  view('categorie.categorie',compact('categories'));
     }
 
     /**
@@ -24,7 +24,7 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        return  view('addCategorie');
+        return  view('categorie.addCategorie');
     }
 
     /**
