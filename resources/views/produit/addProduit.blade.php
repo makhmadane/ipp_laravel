@@ -3,31 +3,36 @@
 
 @section('content')
 
-<form action="{{route('saveProduit')}}" method="post">
-    @method('post')
+<form action="{{route($produit->id ? 'updateProduit' : 'saveProduit',$produit->id)}}" method="post" enctype="multipart/form-data">
+    @method($produit->id ? 'put' :'post')
     @csrf
+    <label for="">Photo </label>
+    <input type="file" name="photo" class="form-control" id="" value="{{$produit->photo}}">
+
     <label for="">Libelle</label>
-    <input type="text" name="libelle" class="form-control">
+    <input type="text" name="libelle" class="form-control" value="{{$produit->libelle}}">
     @error('libelle')
        <span class="text-danger">  {{$message}}</span> <br>
     @enderror
     <label for="">Prix</label>
-    <input type="number" name="prix" class="form-control">
+    <input type="number" name="prix" class="form-control" value="{{$produit->prix}}">
     @error('prix')
         <span class="text-danger">  {{$message}}</span> <br>
     @enderror
     <label for="">Quantite</label>
-    <input type="text" name="qt" class="form-control">
+    <input type="text" name="qt" class="form-control" value="{{$produit->qt}}">
     @error('qt')
         <span class="text-danger">  {{$message}}</span> <br>
     @enderror
     <label for="">Description</label>
-    <input type="text" name="description" class="form-control">
+    <input type="text" name="description" class="form-control" value="{{$produit->description}}">
+
+    <label for="">Categorie</label>
     <select name="categorie_id" class="form-control">
         @foreach($categories as $c)
-            <option value="{{$c->id}}" >{{$c->libelle}}</option>
+            <option @if($c->id == $produit->categorie_id) selected @endif value="{{$c->id}}" >{{$c->libelle}}</option>
         @endforeach
     </select>
-    <button type="submit" class="btn btn-success">Save</button>
+    <button type="submit" class="btn btn-success">{{$produit->id ? 'Update' : 'Save'}}</button>
 </form>
 @endsection

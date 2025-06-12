@@ -17,7 +17,7 @@
 
     <table class="table table-bordered mt-5">
         <tr>
-            <td>Id</td>
+            <td>Photo</td>
             <td>Libelle</td>
             <td>Prix</td>
             <td>Quantite</td>
@@ -26,7 +26,13 @@
         </tr>
         @foreach($produits as $c)
             <tr>
-                <td>{{$c->id}}</td>
+                <td>
+                    @if($c->photo)
+                        <img src="{{asset('storage/'.$c->photo)}}" width="90px">
+                    @else
+                        <img src="{{asset('storage/images/user.png')}}" width="90px">
+                    @endif
+                </td>
                 <td>{{$c->libelle}}</td>
                 <td>{{$c->prix}}</td>
                 <td>{{$c->qt}}</td>
@@ -37,6 +43,8 @@
                         @csrf
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
+
+                    <a class="btn btn-primary" href="{{route('editProduit',$c->id)}}" >Update</a>
                 </td>
             </tr>
         @endforeach

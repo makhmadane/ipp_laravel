@@ -15,7 +15,7 @@ class ProduitController extends Controller
     public function index()
     {
        // $produits = Produit::all();
-        $produits = Produit::Paginate(2);
+        $produits = Produit::Paginate(10);
         return view('produit.produit',compact('produits'));
     }
 
@@ -27,7 +27,8 @@ class ProduitController extends Controller
     public function create()
     {
         $categories = \App\Models\Categorie::all();
-        return  view('produit.addProduit',compact('categories'));
+        $produit = new Produit();
+        return  view('produit.addProduit',compact('categories','produit'));
     }
 
     /**
@@ -43,7 +44,12 @@ class ProduitController extends Controller
             'libelle' => 'required|max:30',
             'prix' => 'required|numeric|min:0|max:10000',
             'qt' => 'required',
+           // 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if($request->file('photo')){
+            $path = $request->file('photo')->store('images','public');
+        }
 
         $produit = new \App\Models\Produit();
         $produit->libelle = $request->libelle;
@@ -51,6 +57,7 @@ class ProduitController extends Controller
         $produit->qt = $request->qt;
         $produit->description = $request->description;
         $produit->categorie_id = $request->categorie_id;
+        $produit->photo = $path;
         $produit->save();
 
         return  redirect('produit')->with("message", "Produit ajout avec succes");
@@ -75,7 +82,9 @@ class ProduitController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produit = Produit::find($id);
+        $categories = \App\Models\Categorie::all();
+        return  view('produit.addProduit',compact('categories','produit'));
     }
 
     /**
@@ -87,7 +96,16 @@ class ProduitController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'libelle' => 'required|max:30',
+            'prix' => 'required|numeric|min:0|max:10000',
+            'qt' => 'required',
+        ]);
+        $produit = Produit::find($id);
+        $produit->update($request->all());
+
+        return redirect('produit')->with("message", "Produit modifier avec succes");
+
     }
 
     /**
