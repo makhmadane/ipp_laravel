@@ -15,7 +15,7 @@ class ProduitController extends Controller
     public function index()
     {
        // $produits = Produit::all();
-        $produits = Produit::Paginate(10);
+        $produits = Produit::Paginate(5);
         return view('produit.produit',compact('produits'));
     }
 
@@ -57,7 +57,7 @@ class ProduitController extends Controller
         $produit->qt = $request->qt;
         $produit->description = $request->description;
         $produit->categorie_id = $request->categorie_id;
-        $produit->photo = $path;
+        $produit->photo =  $request->file('photo') ?$path : null;
         $produit->save();
 
         return  redirect('produit')->with("message", "Produit ajout avec succes");
