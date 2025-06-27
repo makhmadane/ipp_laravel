@@ -25,6 +25,14 @@
                 <a class="nav-link" href="{{route('categorie')}}">Liste des catégories</a>
             </li>
 
+            <form action="{{route('logout')}}" method="post">
+                @method("post")
+                @csrf
+                <button type="submit" class="btn btn-danger">Deconnexion</button>
+            </form>
+
+
+
         </ul>
     </div>
 </nav>
